@@ -1,7 +1,7 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace RR.Serialization
+namespace RR.Serialization.Editor
 {
     [CustomPropertyDrawer(typeof(ReadonlyVariable<>))]
     public class ReadonlyDrawer : PropertyDrawer

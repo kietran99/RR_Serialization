@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEditor;
 
-namespace RR.Serialization
+namespace RR.Serialization.Editor
 {
 	[CustomPropertyDrawer(typeof(TagFieldAttribute))]
 	public class TagFieldAttributeDrawer : PropertyDrawer
