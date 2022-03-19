@@ -1,9 +1,29 @@
 using UnityEditor;
 
-namespace RR.Serialization
+namespace RR.Serialization.Editor
 {
     public static class PropertyDrawerUtility
     {
+        public static int GetChildrenSize(SerializedProperty property, string propName)
+        {
+            var child = property.FindPropertyRelative(propName);
+
+            System.Func<SerializedProperty, string, int> CountChildren = (property, propName) =>
+            {
+                int cnt = 0;
+
+                foreach (var _ in property.FindPropertyRelative(propName))
+                {
+                    cnt++;
+                }
+
+                return cnt;
+            };
+
+            var childrenSize = child.isArray ? child.arraySize : CountChildren(property, propName);
+            return childrenSize == 0 ? 1 : childrenSize;
+        }
+
         public static int GetChildrenSize(SerializedProperty property)
         {
             if (!property.hasChildren)
