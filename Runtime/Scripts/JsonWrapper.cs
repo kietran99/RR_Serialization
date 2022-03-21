@@ -2,45 +2,48 @@ using UnityEngine;
 
 using System.IO;
 
-public static class JsonWrapper
+namespace RR.Serialization
 {
-    public static bool ReadJsonArray<T>(string path, out T[] json)
+    public static class JsonWrapper
     {
-        try
+        public static bool ReadJsonArray<T>(string path, out T[] json)
         {
-            string jsonStr = File.ReadAllText(path);
-            json = JsonUtility.FromJson<JsonArray<T>>(jsonStr).items;
-            return true;
+            try
+            {
+                string jsonStr = File.ReadAllText(path);
+                json = JsonUtility.FromJson<JsonArray<T>>(jsonStr).items;
+                return true;
+            }
+            catch (System.Exception e)
+            {
+                Debug.LogError(e.Message);
+                json = new T[0];
+                return false;
+            }
         }
-        catch (System.Exception e)
-        {
-            Debug.LogError(e.Message);
-            json = new T[0];
-            return false;
-        }
-    }
 
-    public static bool OverwriteJsonArray<T>(string path, T[] newJson)
-    {
-        try
+        public static bool OverwriteJsonArray<T>(string path, T[] newJson)
         {
-            string oldJsonStr = File.ReadAllText(path);
-            string newJsonStr = JsonUtility.ToJson(new JsonArray<T>(){ items = newJson }, true);
-            JsonUtility.FromJsonOverwrite(oldJsonStr, newJsonStr);
-            Debug.Log(newJsonStr);
-            File.WriteAllText(path, newJsonStr);
-            return true;
+            try
+            {
+                string oldJsonStr = File.ReadAllText(path);
+                string newJsonStr = JsonUtility.ToJson(new JsonArray<T>(){ items = newJson }, true);
+                JsonUtility.FromJsonOverwrite(oldJsonStr, newJsonStr);
+                Debug.Log(newJsonStr);
+                File.WriteAllText(path, newJsonStr);
+                return true;
+            }
+            catch (System.Exception e)
+            {
+                Debug.LogError(e.Message);
+                return false;
+            }
         }
-        catch (System.Exception e)
-        {
-            Debug.LogError(e.Message);
-            return false;
-        }
-    }
 
-    [System.Serializable]
-    public class JsonArray<T>
-    {
-        public T[] items;
+        [System.Serializable]
+        public class JsonArray<T>
+        {
+            public T[] items;
+        }
     }
 }
