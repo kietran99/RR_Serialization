@@ -1,7 +1,7 @@
 namespace RR.Serialization
 {
     [System.Serializable]
-    public class ReadonlyVariable<T>
+    public class ReadonlyVar<T>
     {
         [UnityEngine.SerializeField]
         private T _value;

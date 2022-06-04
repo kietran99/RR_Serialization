@@ -3,8 +3,8 @@ using UnityEngine;
 
 namespace RR.Serialization.Editor
 {
-    [CustomPropertyDrawer(typeof(ReadonlyVariable<>))]
-    public class ReadonlyDrawer : PropertyDrawer
+    [CustomPropertyDrawer(typeof(ReadonlyVar<>))]
+    public class ReadonlyVarDrawer : PropertyDrawer
     {
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
